@@ -68,8 +68,7 @@ public class TicTacViewController implements Initializable
     private void handleNewGame(ActionEvent event)
     {
         game.newGame();
-        clearBoard();
-        game.getCurrentPlayer();
+        clearBoard();;
         setPlayer();
     }
 

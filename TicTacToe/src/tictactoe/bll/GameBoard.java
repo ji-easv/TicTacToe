@@ -5,7 +5,6 @@
  */
 package tictactoe.bll;
 
-
 public class GameBoard implements IGameModel
 {
     private String[][] playField = new String[3][3];
