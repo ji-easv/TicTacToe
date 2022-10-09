@@ -11,17 +11,16 @@ package tictactoe.bll;
  */
 public interface IGameModel
 {
-
     /**
      * Returns 0 for player 0, 1 for player 1.
      *
-     * @return int Id of the next player.
+     * @return int ID of the next player.
      */
     public int getNextPlayer();
 
     /**
      * Attempts to let the current player play at the given coordinates. If the
-     * attempt is succesfull the current player has ended his turn and it is the
+     * attempt is successful the current player has ended his turn, and it is the
      * next players turn.
      *
      * @param col column to place a marker in.
@@ -50,4 +49,10 @@ public interface IGameModel
      * Resets the game to a new game state.
      */
     public void newGame();
+
+    public void setCurrentPlayer(int player);
+
+    public void updatePlayField(int row, int col, String player);
+
+    public String[][] getPlayField();
 }
