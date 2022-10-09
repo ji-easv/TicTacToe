@@ -4,15 +4,12 @@
  * and open the template in the editor.
  */
 package tictactoe.bll;
-import tictactoe.gui.controller.TicTacViewController;
 
-import java.util.Arrays;
 
 public class GameBoard implements IGameModel
 {
-    private TicTacViewController ticTacViewController;
     private String[][] playField = new String[3][3];
-    private int currentPlayer;
+    private int currentPlayer = 1;
 
     public int getNextPlayer()
     {
@@ -22,8 +19,8 @@ public class GameBoard implements IGameModel
         return 0;
     }
 
-    public void setCurrentPlayer(int player){
-        this.currentPlayer = player;
+    public int getCurrentPlayer(){
+        return currentPlayer;
     }
 
     public boolean play(int row, int col)
@@ -35,7 +32,7 @@ public class GameBoard implements IGameModel
             if (playField[row][col] == null){
                 String xOrO = currentPlayer == 0 ? "X" : "O";
                 updatePlayField(row,col,xOrO);
-                //currentPlayer = getNextPlayer();
+                currentPlayer = getNextPlayer();
                 return true;
             }
             else {
@@ -45,12 +42,7 @@ public class GameBoard implements IGameModel
     }
 
     public boolean isGameOver() {
-        if (checkHorizontally() || checkVertically() || checkTopLeftToBottomRight() || checkBottomLeftToTopRight() || isBoardFull()){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return checkHorizontally() || checkVertically() || checkTopLeftToBottomRight() || checkBottomLeftToTopRight() || isBoardFull();
     }
 
     public int getWinner()
@@ -59,21 +51,18 @@ public class GameBoard implements IGameModel
             return -1;
         }
         else{
-            return getNextPlayer();
+            return getCurrentPlayer();
         }
     }
 
     public void newGame()
     {
         playField = new String[3][3];
+        currentPlayer = 1;
     }
 
     public void updatePlayField(int row, int col, String symbol){
         playField[row][col] = symbol;
-    }
-
-    public String[][] getPlayField(){
-        return playField;
     }
 
     private boolean checkHorizontally(){

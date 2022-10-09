@@ -31,13 +31,14 @@ public class TicTacViewController implements Initializable
     
     private static final String TXT_PLAYER = "Player: ";
     private IGameModel game;
-    private int player = 0;
+    private int player;
 
     @FXML
     private void handleButtonAction(ActionEvent event)
     {
         try
         {
+            player = game.getNextPlayer();
             Integer row = GridPane.getRowIndex((Node) event.getSource());
             Integer col = GridPane.getColumnIndex((Node) event.getSource());
             int r = (row == null) ? 0 : row;
@@ -50,7 +51,6 @@ public class TicTacViewController implements Initializable
                     btn.setText(xOrO);
 
                     player = game.getNextPlayer();
-                    game.setCurrentPlayer(player);
                     setPlayer();
                 }
             }
@@ -69,8 +69,7 @@ public class TicTacViewController implements Initializable
     {
         game.newGame();
         clearBoard();
-        player = 0;
-        game.setCurrentPlayer(player);
+        game.getCurrentPlayer();
         setPlayer();
     }
 
@@ -78,7 +77,7 @@ public class TicTacViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         game = new GameBoard();
-        game.setCurrentPlayer(player);
+        game.getCurrentPlayer();
         setPlayer();
     }
 

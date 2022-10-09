@@ -50,9 +50,7 @@ public interface IGameModel
      */
     public void newGame();
 
-    public void setCurrentPlayer(int player);
-
     public void updatePlayField(int row, int col, String player);
 
-    public String[][] getPlayField();
+    public int getCurrentPlayer();
 }
