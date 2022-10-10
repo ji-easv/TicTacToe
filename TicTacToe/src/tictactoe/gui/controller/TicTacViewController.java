@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import tictactoe.bll.GameBoard;
 import tictactoe.bll.IGameModel;
 
@@ -21,32 +23,30 @@ import tictactoe.bll.IGameModel;
  *
  * @author Stegger
  */
-public class TicTacViewController implements Initializable
-{
+public class TicTacViewController implements Initializable {
     @FXML
     private Label lblPlayer;
 
     @FXML
     private GridPane gridPane;
-    
     private static final String TXT_PLAYER = "Player: ";
     private IGameModel game;
     private int player;
 
     @FXML
-    private void handleButtonAction(ActionEvent event)
-    {
-        try
-        {
+    private void handleButtonAction(ActionEvent event) {
+        try {
             player = game.getNextPlayer();
             Integer row = GridPane.getRowIndex((Node) event.getSource());
             Integer col = GridPane.getColumnIndex((Node) event.getSource());
             int r = (row == null) ? 0 : row;
             int c = (col == null) ? 0 : col;
 
-            if(!game.isGameOver()){
-                if (game.play(r, c)){
+            if (!game.isGameOver()) {
+                if (game.play(r, c)) {
                     Button btn = (Button) event.getSource();
+                    String colour = player == 0 ? "#ED2A1D" : "#2642A6";
+                    btn.setTextFill(Paint.valueOf(colour));
                     String xOrO = player == 0 ? "X" : "O";
                     btn.setText(xOrO);
 
@@ -57,41 +57,35 @@ public class TicTacViewController implements Initializable
 
             int winner = game.getWinner();
             displayWinner(winner);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     @FXML
-    private void handleNewGame(ActionEvent event)
-    {
+    private void handleNewGame(ActionEvent event) {
         game.newGame();
-        clearBoard();;
+        clearBoard();
+        player = 0;
         setPlayer();
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         game = new GameBoard();
         game.getCurrentPlayer();
         setPlayer();
     }
 
-    private void setPlayer()
-    {
+    private void setPlayer() {
         String xOrO = player == 0 ? "X" : "O";
         lblPlayer.setText(TXT_PLAYER + player + " (" + xOrO + ")");
     }
 
-    private void displayWinner(int winner)
-    {
-        if (game.isGameOver()){
+    private void displayWinner(int winner) {
+        if (game.isGameOver()) {
             String message = "";
-            switch (winner)
-            {
+            switch (winner) {
                 case -1:
                     message = "It's a draw :-(";
                     break;
@@ -103,10 +97,8 @@ public class TicTacViewController implements Initializable
         }
     }
 
-    private void clearBoard()
-    {
-        for(Node n : gridPane.getChildren())
-        {
+    private void clearBoard() {
+        for (Node n : gridPane.getChildren()) {
             Button btn = (Button) n;
             btn.setText("");
         }

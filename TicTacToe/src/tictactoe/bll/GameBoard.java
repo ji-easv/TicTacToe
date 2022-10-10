@@ -114,5 +114,24 @@ public class GameBoard implements IGameModel
         }
         return false;
     }
+
+    private class WinningFields{
+        double startR;
+        double startC;
+        double middleR;
+        double middleC;
+        double endR;
+        double endC;
+
+        public WinningFields(int startR, int startC, int endR, int endC){
+            this.startR = startR;
+            this.startC = startC;
+            this.middleR = middleR;
+            this.middleC = middleC;
+            this.endR = endR;
+            this.endC = endC;
+            //ticTacViewController.drawLine(startR, startC, middleR, middleC, endR, endC);
+        }
+    }
 }
 
