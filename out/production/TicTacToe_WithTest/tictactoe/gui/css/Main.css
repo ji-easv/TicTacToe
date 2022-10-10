@@ -9,7 +9,19 @@ and open the template in the editor.
 */
 
 #pane {
-    -fx-background-image: url(../images/background.jpg);
+    -fx-background-color: #FFE0C2;
     -fx-background-repeat: stretch;   
     -fx-background-position: center;
+}
+
+#button {
+    -fx-background-color: #FFEBD6;
+    -fx-font-family: "Verdana";
+    -fx-font-size: 60;
+}
+
+#btnNewGame{
+    -fx-background-color: #FFEBD6;
+    -fx-font-family: "Rockwell";
+    -fx-font-weight: bold;
 }

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.gui.controller.TicTacViewController">
+<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.gui.controller.TicTacViewController">
    <center>
       <GridPane fx:id="gridPane" hgap="4.0" vgap="4.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -23,15 +23,15 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btn1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="424.0" />
-            <Button fx:id="btn2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" GridPane.columnIndex="1" />
-            <Button fx:id="btn3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" GridPane.columnIndex="2" />
-            <Button fx:id="btn4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" GridPane.rowIndex="1" />
-            <Button fx:id="btn5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="btn6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="btn7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" GridPane.rowIndex="2" />
-            <Button fx:id="btn8" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="btn9" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button id="button" fx:id="btn1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="424.0" stylesheets="@../css/Main.css" />
+            <Button id="button" fx:id="btn2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.columnIndex="1" />
+            <Button id="button" fx:id="btn3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.columnIndex="2" />
+            <Button id="button" fx:id="btn4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.rowIndex="1" />
+            <Button id="button" fx:id="btn5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button id="button" fx:id="btn6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button id="button" fx:id="btn7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.rowIndex="2" />
+            <Button id="button" fx:id="btn8" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button id="button" fx:id="btn9" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -39,9 +39,9 @@
       </GridPane>
    </center>
    <top>
-      <Label fx:id="lblPlayer" text="1" BorderPane.alignment="CENTER">
+      <Label fx:id="lblPlayer" text="1" textFill="#1e1e24" BorderPane.alignment="CENTER">
          <font>
-            <Font size="24.0" />
+            <Font name="Rockwell" size="22.0" />
          </font>
       </Label>
    </top>
