@@ -26,7 +26,6 @@ import tictactoe.bll.IGameModel;
 public class TicTacViewController implements Initializable {
     @FXML
     private Label lblPlayer;
-
     @FXML
     private GridPane gridPane;
     private static final String TXT_PLAYER = "Player: ";
@@ -50,14 +49,15 @@ public class TicTacViewController implements Initializable {
                     String xOrO = player == 0 ? "X" : "O";
                     btn.setText(xOrO);
 
-                    player = game.getNextPlayer();
                     setPlayer();
                 }
             }
-
             int winner = game.getWinner();
             displayWinner(winner);
-        } catch (Exception e) {
+            drawLine(100,100,150,150);
+        }
+
+        catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -78,8 +78,9 @@ public class TicTacViewController implements Initializable {
     }
 
     private void setPlayer() {
-        String xOrO = player == 0 ? "X" : "O";
-        lblPlayer.setText(TXT_PLAYER + player + " (" + xOrO + ")");
+        int playerDisplay = game.getNextPlayer();
+        String xOrO = playerDisplay == 0 ? "X" : "O";
+        lblPlayer.setText(TXT_PLAYER + playerDisplay + " (" + xOrO + ")");
     }
 
     private void displayWinner(int winner) {
@@ -102,5 +103,13 @@ public class TicTacViewController implements Initializable {
             Button btn = (Button) n;
             btn.setText("");
         }
+    }
+
+    public void drawLine(double startR, double startC, double endR, double endC){
+        Line line = new Line();
+        line.setStartX(startC);
+        line.setStartY(startR);
+        line.setEndX(endC);
+        line.setEndY(endR);
     }
 }
