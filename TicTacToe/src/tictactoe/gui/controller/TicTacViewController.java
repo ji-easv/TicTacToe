@@ -58,11 +58,11 @@ public class TicTacViewController implements Initializable {
                     setPlayer();
                 }
             }
+
             int winner = game.getWinner();
             displayWinner(winner);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -110,14 +110,25 @@ public class TicTacViewController implements Initializable {
         }
     }
 
-    public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+    public Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
         Node result = null;
         ObservableList<Node> children = gridPane.getChildren();
 
         for (Node node : children) {
-            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+
+            Integer getR = GridPane.getRowIndex(node);
+            Integer getC = GridPane.getColumnIndex(node);
+
+            if (getR == null) {
+                getR = 0;
+            }
+
+            if (getC == null) {
+                getC = 0;
+            }
+
+            if (getR == row && getC == column) {
                 result = node;
-                break;
             }
         }
         return result;
@@ -139,5 +150,9 @@ public class TicTacViewController implements Initializable {
         stage.setTitle("Tic Tac Toe");
         stage.centerOnScreen();
         stage.show();
+    }
+
+    public GridPane getGridPane(){
+        return gridPane;
     }
 }

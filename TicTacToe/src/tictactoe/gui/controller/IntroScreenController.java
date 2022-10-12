@@ -29,6 +29,7 @@ public class IntroScreenController {
         Parent root = loader.load();
         TicTacViewController ticTacViewController = loader.getController();
         ticTacViewController.setModel((GameBoard) game);
+        game.setController(ticTacViewController);
 
         Button selected = (Button) actionEvent.getSource();
         if (selected.getId() == btnSinglePlayer.getId()) {

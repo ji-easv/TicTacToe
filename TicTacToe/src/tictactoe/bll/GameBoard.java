@@ -5,6 +5,9 @@
  */
 package tictactoe.bll;
 
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
 import tictactoe.gui.controller.TicTacViewController;
 
 import java.lang.reflect.Array;
@@ -12,10 +15,12 @@ import java.util.Arrays;
 
 public class GameBoard implements IGameModel
 {
+    TicTacViewController ticTacViewController;
+    GridPane gridPane;
     private String[][] playField = new String[3][3];
     private int currentPlayer = 1;
     String winner;
-    private boolean isSinglePlayer = false;
+    private boolean singlePlayer = false;
 
     public int getNextPlayer() {
         if (currentPlayer == 0){
@@ -39,19 +44,10 @@ public class GameBoard implements IGameModel
                 String xOrO = currentPlayer == 0 ? "X" : "O";
                 updatePlayField(row,col,xOrO);
 
-                if (isSinglePlayer){
+                if (singlePlayer){
                     currentPlayer = getNextPlayer();
                     chooseAIMove();
-
                 }
-
-                for (int r = 0; r < playField.length; r++){
-                    for (int c = 0; c < playField[0].length; c++){
-                        System.out.print(playField[r][c] + ",");
-                    }
-                    System.out.println();
-                }
-                System.out.println();
                 return true;
             }
             else {
@@ -74,7 +70,7 @@ public class GameBoard implements IGameModel
             }
         }
         else{
-            return 2; //cheating
+            return 2;
         }
     }
 
@@ -143,7 +139,6 @@ public class GameBoard implements IGameModel
     }
 
     public Integer[] chooseAIMove() {
-        //AI to make its turn
         float bestScore = Float.NEGATIVE_INFINITY;
         Integer[] bestMove = new Integer[2];
         int score;
@@ -165,7 +160,11 @@ public class GameBoard implements IGameModel
         }
         if(!isGameOver()){
             updatePlayField(bestMove[0],bestMove[1], "O");
+            Button btn = (Button) ticTacViewController.getNodeByRowColumnIndex(bestMove[0], bestMove[1], ticTacViewController.getGridPane());
+            btn.setTextFill(Paint.valueOf("#2642A6"));
+            btn.setText("O");
         }
+
         return bestMove;
     }
 
@@ -221,7 +220,12 @@ public class GameBoard implements IGameModel
     }
 
     public void updateIsSinglePlayer(boolean value){
-        this.isSinglePlayer = value;
+        this.singlePlayer = value;
     }
+
+    public void setController(TicTacViewController ticTacViewController){
+        this.ticTacViewController = ticTacViewController;
+    }
+
 }
 

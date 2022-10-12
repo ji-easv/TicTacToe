@@ -5,6 +5,9 @@
  */
 package tictactoe.bll;
 
+import javafx.scene.layout.GridPane;
+import tictactoe.gui.controller.TicTacViewController;
+
 /**
  *
  * @author Stegger
@@ -57,4 +60,7 @@ public interface IGameModel
     public Integer[] chooseAIMove();
 
     public void updateIsSinglePlayer(boolean value);
+
+    public void setController(TicTacViewController ticTacViewController);
+
 }
