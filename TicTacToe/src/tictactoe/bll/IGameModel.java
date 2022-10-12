@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tictactoe.bll;
 
-import javafx.scene.layout.GridPane;
 import tictactoe.gui.controller.TicTacViewController;
 
 /**
@@ -38,12 +32,12 @@ public interface IGameModel
      * Tells us if the game has ended either by draw or by meeting the winning
      * condition.
      *
-     * @return true if the game is over, else it will retun false.
+     * @return true if the game is over, else it will return false.
      */
     public boolean isGameOver();
 
     /**
-     * Gets the id of the winner, -1 if its a draw or if the game is still running.
+     * Gets the id of the winner, -1 if it's a draw or if the game is still running.
      *
      * @return int id of winner, or -1 if draw or if gameOver() == false.
      */
@@ -57,10 +51,12 @@ public interface IGameModel
     public void updatePlayField(int row, int col, String symbol);
 
     public int getCurrentPlayer();
-    public Integer[] chooseAIMove();
+    public void chooseAIMove();
 
     public void updateIsSinglePlayer(boolean value);
 
     public void setController(TicTacViewController ticTacViewController);
+
+    public Integer[] getWinningFields();
 
 }
