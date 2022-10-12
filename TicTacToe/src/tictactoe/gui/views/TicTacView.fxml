@@ -23,9 +23,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button id="button" fx:id="btn1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="424.0" stylesheets="@../css/Main.css" />
-            <Button id="button" fx:id="btn2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.columnIndex="1" />
-            <Button id="button" fx:id="btn3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.columnIndex="2" />
+            <Button id="button" fx:id="btn1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="424.0" stylesheets="@../css/Main.css" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Button id="button" fx:id="btn2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+            <Button id="button" fx:id="btn3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.rowIndex="0" GridPane.columnIndex="2" />
             <Button id="button" fx:id="btn4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.rowIndex="1" />
             <Button id="button" fx:id="btn5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button id="button" fx:id="btn6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleButtonAction" stylesheets="@../css/Main.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />

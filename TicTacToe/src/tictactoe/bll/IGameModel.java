@@ -11,6 +11,7 @@ package tictactoe.bll;
  */
 public interface IGameModel
 {
+
     /**
      * Returns 0 for player 0, 1 for player 1.
      *
@@ -50,7 +51,10 @@ public interface IGameModel
      */
     public void newGame();
 
-    public void updatePlayField(int row, int col, String player);
+    public void updatePlayField(int row, int col, String symbol);
 
     public int getCurrentPlayer();
+    public Integer[] chooseAIMove();
+
+    public void updateIsSinglePlayer(boolean value);
 }

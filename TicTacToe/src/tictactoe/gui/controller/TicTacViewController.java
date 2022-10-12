@@ -7,6 +7,8 @@ package tictactoe.gui.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,15 +50,13 @@ public class TicTacViewController implements Initializable {
                     btn.setTextFill(Paint.valueOf(colour));
                     String xOrO = player == 0 ? "X" : "O";
                     btn.setText(xOrO);
-
                     setPlayer();
                 }
             }
             int winner = game.getWinner();
             displayWinner(winner);
-            drawLine(100,100,150,150);
-        }
 
+        }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -105,11 +105,20 @@ public class TicTacViewController implements Initializable {
         }
     }
 
-    public void drawLine(double startR, double startC, double endR, double endC){
-        Line line = new Line();
-        line.setStartX(startC);
-        line.setStartY(startR);
-        line.setEndX(endC);
-        line.setEndY(endR);
+    public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+        Node result = null;
+        ObservableList<Node> children = gridPane.getChildren();
+
+        for (Node node : children) {
+            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public void setModel(GameBoard game){
+        this.game = game;
     }
 }

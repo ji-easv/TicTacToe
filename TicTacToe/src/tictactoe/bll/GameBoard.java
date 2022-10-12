@@ -7,17 +7,17 @@ package tictactoe.bll;
 
 import tictactoe.gui.controller.TicTacViewController;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class GameBoard implements IGameModel
 {
-    TicTacViewController ticTacViewController = new TicTacViewController();
     private String[][] playField = new String[3][3];
     private int currentPlayer = 1;
     String winner;
+    private boolean isSinglePlayer = false;
 
-    public int getNextPlayer()
-    {
+    public int getNextPlayer() {
         if (currentPlayer == 0){
             return 1;
         }
@@ -39,19 +39,18 @@ public class GameBoard implements IGameModel
                 String xOrO = currentPlayer == 0 ? "X" : "O";
                 updatePlayField(row,col,xOrO);
 
+                if (!isBoardFull() && getWinner() == 2 && isSinglePlayer){
+                    currentPlayer = getNextPlayer();
+                    chooseAIMove();
+                }
+
                 for (int r = 0; r < playField.length; r++){
                     for (int c = 0; c < playField[0].length; c++){
-                        if (playField[r][c] == null){
-                            System.out.print("_,");
-                        }
-                        else{
-                            System.out.print(playField[r][c] + ",");
-                        }
+                        System.out.print(playField[r][c] + ",");
                     }
                     System.out.println();
                 }
                 System.out.println();
-
                 return true;
             }
             else {
@@ -64,8 +63,7 @@ public class GameBoard implements IGameModel
         return checkHorizontally() || checkVertically() || checkTopLeftToBottomRight() || checkBottomLeftToTopRight() || isBoardFull();
     }
 
-    public int getWinner()
-    {
+    public int getWinner() {
         if (isGameOver()){
             if (isBoardFull() && !checkHorizontally() && !checkVertically() && !checkTopLeftToBottomRight() && !checkBottomLeftToTopRight()){
                 return -1;
@@ -75,12 +73,11 @@ public class GameBoard implements IGameModel
             }
         }
         else{
-            return 0;
+            return 2; //cheating
         }
     }
 
-    public void newGame()
-    {
+    public void newGame() {
         playField = new String[3][3];
         currentPlayer = 1;
     }
@@ -93,7 +90,6 @@ public class GameBoard implements IGameModel
         for (int r = 0; r < playField.length; r++) {
             for (int c = 0; c < 1; c++) {
                 if (playField[r][c] == playField[r][c + 1] && playField[r][c] == playField[r][c + 2] && playField[r][c] != null) {
-                    new WinningFields(r,c,r,c+2);
                     winner = playField[r][c];
                     return true;
                 }
@@ -106,7 +102,6 @@ public class GameBoard implements IGameModel
         for (int r = 0; r < 1; r++) {
             for (int c = 0; c < playField.length; c++) {
                 if (playField[r][c] == playField[r + 1][c] && playField[r][c] == playField[r + 2][c] && playField[r][c] != null) {
-                    new WinningFields(r,c,r+2,c);
                     winner = playField[r][c];
                     return true;
                 }
@@ -117,7 +112,6 @@ public class GameBoard implements IGameModel
 
     private boolean checkTopLeftToBottomRight(){
         if (playField[0][0] == playField[1][1] && playField[0][0] == playField[2][2] && playField[0][0] != null) {
-            new WinningFields(0,0,2,2);
             winner = playField[0][0];
             return true;
         }
@@ -126,7 +120,6 @@ public class GameBoard implements IGameModel
 
     private boolean checkBottomLeftToTopRight(){
         if (playField[0][2] == playField[1][1] && playField[0][2] == playField[2][0] && playField[0][2] != null) {
-            new WinningFields(0,2,2,0);
             winner = playField[0][2];
             return true;
         }
@@ -148,35 +141,88 @@ public class GameBoard implements IGameModel
         return false;
     }
 
-    public void playAI(){
-        int bestMoveRow;
-        int bestMoveCol;
-        for (int r = 0; r < playField.length; r++){
-            for (int c = 0; c < playField[0].length; c++) {
-                String[][] playFieldWithMove = playField;
-                if (playFieldWithMove[r][c] == null){
-                    playFieldWithMove[r][c] = "O";
-                    if (isGameOver() && winner == "O"){
 
+    public Integer[] chooseAIMove() {
+        //AI to make its turn
+        float bestScore = Float.NEGATIVE_INFINITY;
+        Integer[] bestMove = new Integer[2];
+        int score = 50;
+
+        for (int r = 0; r < playField.length; r++) {
+            for (int c = 0; c < playField[0].length; c++) {
+                if (playField[r][c] == null) {
+                    playField[r][c] = "O";
+                    score = minimax(0, false);
+                    playField[r][c] = null;
+
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestMove[0] = r;
+                        bestMove[1] = c;
                     }
                 }
             }
         }
+        if(!isGameOver()){
+            updatePlayField(bestMove[0],bestMove[1], "O");
+        }
+        return bestMove;
     }
 
-    private class WinningFields{
-        double startR;
-        double startC;
-        double endR;
-        double endC;
+    public int minimax(int depth, boolean isMaximizing) {
+        int result = getWinner();
+        int score = 50;
 
-        public WinningFields(int startR, int startC, int endR, int endC){
-            this.startR = startR*50;
-            this.startC = startC*50;
-            this.endR = endR*50;
-            this.endC = endC*50;
-            ticTacViewController.drawLine(this.startR, this.startC, this.endR, this.endC);
+        //If the winner isn't empty, this will be the last move
+        if (result != 2) {
+            switch (result) {
+                case -1:
+                    score = 0;
+                    break;
+                case 0:
+                    score = -10;
+                    break;
+                case 1:
+                    score = 10;
+                    break;
+            }
+            return score;
+        }
+
+        if (isMaximizing) {
+            float bestScore = Float.NEGATIVE_INFINITY;
+            for (int r = 0; r < playField.length; r++) {
+                for (int c = 0; c < playField[0].length; c++) {
+                    if (playField[r][c] == null) {
+                        playField[r][c] = "O";
+                        score = minimax(depth+1, false);
+                        playField[r][c] = null;
+                        bestScore = Integer.max(score, Float.floatToIntBits(bestScore));
+                    }
+                }
+            }
+            return Float.floatToIntBits(bestScore);
+        }
+
+        else{
+            float bestScore = Float.POSITIVE_INFINITY;
+            for (int r = 0; r < playField.length; r++) {
+                for (int c = 0; c < playField[0].length; c++) {
+                    if (playField[r][c] == null) {
+                        playField[r][c] = "X";
+                        score = minimax(depth+1, true);
+                        playField[r][c] = null;
+                        bestScore = Integer.min(score, Float.floatToIntBits(bestScore));
+                    }
+                }
+            }
+            return Float.floatToIntBits(bestScore);
         }
     }
+
+    public void updateIsSinglePlayer(boolean value){
+        this.isSinglePlayer = value;
+    }
+
 }
 
