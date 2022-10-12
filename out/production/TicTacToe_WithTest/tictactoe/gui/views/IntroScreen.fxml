@@ -1,11 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.gui.controller.IntroScreenController">
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:controller="tictactoe.gui.controller.IntroScreenController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFE0C2;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btnMultiPlayer" layoutX="276.0" layoutY="237.0" mnemonicParsing="false" onAction="#switchToGame" text="Multi" />
-      <Button fx:id="btnSinglePlayer" layoutX="275.0" layoutY="164.0" mnemonicParsing="false" onAction="#switchToGame" text="Single" />
+      <Ellipse fill="#ffe0c2" layoutX="110.0" layoutY="104.0" radiusX="27.0" radiusY="28.0" stroke="#ff3333" strokeType="INSIDE" strokeWidth="3.0" />
+      <Line endX="-49.33331298828125" endY="43.00001525878906" layoutX="554.0" layoutY="82.0" startX="-101.121337890625" startY="-1.7879867553710938" stroke="#491cff" strokeWidth="3.0" />
+      <Line endX="-50.0" endY="-41.666664123535156" layoutX="555.0" layoutY="124.0" startX="-100.0" stroke="#491cff" strokeWidth="3.0" />
+      <Line endX="-50.212005615234375" endY="-43.121337890625" layoutX="188.0" layoutY="334.0" startX="-100.0" stroke="#491cff" strokeWidth="3.0" />
+      <Line endX="-49.33331298828125" endY="43.00001525878906" layoutX="185.0" layoutY="293.0" startX="-99.121337890625" startY="-4.24267578125" stroke="#491cff" strokeWidth="3.0" />
+      <Ellipse fill="#ffe0c2" layoutX="480.0" layoutY="315.0" radiusX="27.0" radiusY="28.0" stroke="#ff3333" strokeType="INSIDE" strokeWidth="3.0" />
+      <Label layoutX="254.0" layoutY="53.0" prefHeight="46.0" prefWidth="165.0" text="Welcome to ..." textFill="#430000">
+         <font>
+            <Font name="Yu Gothic Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnSinglePlayer" layoutX="148.0" layoutY="234.0" mnemonicParsing="false" onAction="#switchToGame" style="-fx-background-color: #FFEBD6;" text="Singleplayer" textFill="RED">
+         <font>
+            <Font name="Yu Gothic Regular" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnMultiPlayer" layoutX="357.0" layoutY="234.0" mnemonicParsing="false" onAction="#switchToGame" style="-fx-background-color: #FFEBD6;" text="Multiplayer" textFill="#2200ff">
+         <font>
+            <Font name="Yu Gothic Regular" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="197.0" layoutY="191.0" text="Choose one of the following to start" textFill="#430000">
+         <font>
+            <Font name="Webdings" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="190.0" layoutY="105.0" prefHeight="56.0" prefWidth="68.0" text="TIC" textFill="#430000">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="259.0" layoutY="105.0" prefHeight="56.0" prefWidth="68.0" text="TAC" textFill="#430000">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="337.0" layoutY="105.0" prefHeight="56.0" prefWidth="68.0" text="TOE" textFill="#430000">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Line endX="146.0" endY="67.66666412353516" layoutX="214.0" layoutY="53.0" startX="162.66668701171875" startY="93.00001525878906" strokeWidth="2.0" />
+      <Line endX="143.33331298828125" endY="62.33332824707031" layoutX="214.0" layoutY="83.0" startX="163.33331298828125" startY="37.00000762939453" strokeWidth="2.0" />
+      <Line endX="109.66668701171875" endY="7.62939453125E-6" layoutX="293.0" layoutY="99.0" startX="-110.33331298828125" startY="7.62939453125E-6" stroke="#430000" strokeWidth="2.0" />
+      <Line endX="100.0" layoutX="289.0" layoutY="161.0" startX="-94.0" startY="1.52587890625E-5" stroke="#430000" strokeWidth="2.0" />
    </children>
 </AnchorPane>

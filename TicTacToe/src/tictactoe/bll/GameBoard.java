@@ -39,9 +39,10 @@ public class GameBoard implements IGameModel
                 String xOrO = currentPlayer == 0 ? "X" : "O";
                 updatePlayField(row,col,xOrO);
 
-                if (!isBoardFull() && getWinner() == 2 && isSinglePlayer){
+                if (isSinglePlayer){
                     currentPlayer = getNextPlayer();
                     chooseAIMove();
+
                 }
 
                 for (int r = 0; r < playField.length; r++){
@@ -141,12 +142,11 @@ public class GameBoard implements IGameModel
         return false;
     }
 
-
     public Integer[] chooseAIMove() {
         //AI to make its turn
         float bestScore = Float.NEGATIVE_INFINITY;
         Integer[] bestMove = new Integer[2];
-        int score = 50;
+        int score;
 
         for (int r = 0; r < playField.length; r++) {
             for (int c = 0; c < playField[0].length; c++) {
@@ -223,6 +223,5 @@ public class GameBoard implements IGameModel
     public void updateIsSinglePlayer(boolean value){
         this.isSinglePlayer = value;
     }
-
 }
 
