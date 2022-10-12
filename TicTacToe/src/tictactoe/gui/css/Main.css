@@ -25,3 +25,11 @@ and open the template in the editor.
     -fx-font-family: "Rockwell";
     -fx-font-weight: bold;
 }
+
+#btnSinglePlayer{
+    -fx-font-weight: bold;
+}
+
+#btnMultiPlayer{
+    -fx-font-weight: bold;
+}

@@ -27,6 +27,7 @@ public class IntroScreenController {
     public void switchToGame(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/TicTacView.fxml"));
         Parent root = loader.load();
+
         TicTacViewController ticTacViewController = loader.getController();
         ticTacViewController.setModel((GameBoard) game);
         game.setController(ticTacViewController);
@@ -34,7 +35,8 @@ public class IntroScreenController {
         Button selected = (Button) actionEvent.getSource();
         if (selected.getId() == btnSinglePlayer.getId()) {
             game.updateIsSinglePlayer(true);
-        } else {
+        }
+        else {
             game.updateIsSinglePlayer(false);
         }
 

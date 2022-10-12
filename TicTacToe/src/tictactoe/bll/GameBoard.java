@@ -1,26 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tictactoe.bll;
 
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import tictactoe.gui.controller.TicTacViewController;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class GameBoard implements IGameModel
 {
     TicTacViewController ticTacViewController;
-    GridPane gridPane;
     private String[][] playField = new String[3][3];
+    private Integer[] winningFields = new Integer[4];
     private int currentPlayer = 1;
     String winner;
-    private boolean singlePlayer = false;
+    private boolean isSinglePlayer = false;
 
     public int getNextPlayer() {
         if (currentPlayer == 0){
@@ -33,8 +24,7 @@ public class GameBoard implements IGameModel
         return currentPlayer;
     }
 
-    public boolean play(int row, int col)
-    {
+    public boolean play(int row, int col) {
         if (isGameOver()){
             return false;
         }
@@ -44,7 +34,7 @@ public class GameBoard implements IGameModel
                 String xOrO = currentPlayer == 0 ? "X" : "O";
                 updatePlayField(row,col,xOrO);
 
-                if (singlePlayer){
+                if (isSinglePlayer){
                     currentPlayer = getNextPlayer();
                     chooseAIMove();
                 }
@@ -88,6 +78,10 @@ public class GameBoard implements IGameModel
             for (int c = 0; c < 1; c++) {
                 if (playField[r][c] == playField[r][c + 1] && playField[r][c] == playField[r][c + 2] && playField[r][c] != null) {
                     winner = playField[r][c];
+                    winningFields[0] = r;
+                    winningFields[1] = c;
+                    winningFields[2] = r;
+                    winningFields[3] = c+2;
                     return true;
                 }
             }
@@ -100,6 +94,10 @@ public class GameBoard implements IGameModel
             for (int c = 0; c < playField.length; c++) {
                 if (playField[r][c] == playField[r + 1][c] && playField[r][c] == playField[r + 2][c] && playField[r][c] != null) {
                     winner = playField[r][c];
+                    winningFields[0] = r;
+                    winningFields[1] = c;
+                    winningFields[2] = r+2;
+                    winningFields[3] = c;
                     return true;
                 }
             }
@@ -110,6 +108,10 @@ public class GameBoard implements IGameModel
     private boolean checkTopLeftToBottomRight(){
         if (playField[0][0] == playField[1][1] && playField[0][0] == playField[2][2] && playField[0][0] != null) {
             winner = playField[0][0];
+            winningFields[0] = 0;
+            winningFields[1] = 0;
+            winningFields[2] = 2;
+            winningFields[3] = 2;
             return true;
         }
         return false;
@@ -118,6 +120,10 @@ public class GameBoard implements IGameModel
     private boolean checkBottomLeftToTopRight(){
         if (playField[0][2] == playField[1][1] && playField[0][2] == playField[2][0] && playField[0][2] != null) {
             winner = playField[0][2];
+            winningFields[0] = 0;
+            winningFields[1] = 2;
+            winningFields[2] = 2;
+            winningFields[3] = 0;
             return true;
         }
         return false;
@@ -138,7 +144,7 @@ public class GameBoard implements IGameModel
         return false;
     }
 
-    public Integer[] chooseAIMove() {
+    public void chooseAIMove() {
         float bestScore = Float.NEGATIVE_INFINITY;
         Integer[] bestMove = new Integer[2];
         int score;
@@ -164,15 +170,12 @@ public class GameBoard implements IGameModel
             btn.setTextFill(Paint.valueOf("#2642A6"));
             btn.setText("O");
         }
-
-        return bestMove;
     }
 
     public int minimax(int depth, boolean isMaximizing) {
         int result = getWinner();
         int score = 50;
 
-        //If the winner isn't empty, this will be the last move
         if (result != 2) {
             switch (result) {
                 case -1:
@@ -220,12 +223,26 @@ public class GameBoard implements IGameModel
     }
 
     public void updateIsSinglePlayer(boolean value){
-        this.singlePlayer = value;
+        this.isSinglePlayer = value;
     }
 
     public void setController(TicTacViewController ticTacViewController){
         this.ticTacViewController = ticTacViewController;
     }
 
+    public Integer[] getWinningFields() {
+        Button startingBtn = (Button) ticTacViewController.getNodeByRowColumnIndex(winningFields[0], winningFields[1], ticTacViewController.getGridPane());
+        Button endingBtn = (Button) ticTacViewController.getNodeByRowColumnIndex(winningFields[2], winningFields[3], ticTacViewController.getGridPane());
+        int startX = (int) startingBtn.getBoundsInParent().getCenterX() + 5;
+        int startY = (int) startingBtn.getBoundsInParent().getCenterY() + ticTacViewController.getLabelHeight();
+        int endX = (int) endingBtn.getBoundsInParent().getCenterX() + 5;
+        int endY = (int) endingBtn.getBoundsInParent().getCenterY() + ticTacViewController.getLabelHeight();
+
+        winningFields[0] = startX;
+        winningFields[1] = startY;
+        winningFields[2] = endX;
+        winningFields[3] = endY;
+        return winningFields;
+    }
 }
 
