@@ -20,7 +20,7 @@ and open the template in the editor.
     -fx-font-size: 60;
 }
 
-#btnNewGame{
+#btnBottom{
     -fx-background-color: #FFEBD6;
     -fx-font-family: "Rockwell";
     -fx-font-weight: bold;

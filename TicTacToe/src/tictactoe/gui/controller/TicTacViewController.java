@@ -5,17 +5,24 @@
  */
 package tictactoe.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import tictactoe.bll.GameBoard;
 import tictactoe.bll.IGameModel;
 
@@ -26,7 +33,6 @@ import tictactoe.bll.IGameModel;
 public class TicTacViewController implements Initializable {
     @FXML
     private Label lblPlayer;
-
     @FXML
     private GridPane gridPane;
     private static final String TXT_PLAYER = "Player: ";
@@ -49,14 +55,13 @@ public class TicTacViewController implements Initializable {
                     btn.setTextFill(Paint.valueOf(colour));
                     String xOrO = player == 0 ? "X" : "O";
                     btn.setText(xOrO);
-
-                    player = game.getNextPlayer();
                     setPlayer();
                 }
             }
 
             int winner = game.getWinner();
             displayWinner(winner);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -78,8 +83,9 @@ public class TicTacViewController implements Initializable {
     }
 
     private void setPlayer() {
-        String xOrO = player == 0 ? "X" : "O";
-        lblPlayer.setText(TXT_PLAYER + player + " (" + xOrO + ")");
+        int playerDisplay = game.getNextPlayer();
+        String xOrO = playerDisplay == 0 ? "X" : "O";
+        lblPlayer.setText(TXT_PLAYER + playerDisplay + " (" + xOrO + ")");
     }
 
     private void displayWinner(int winner) {
@@ -102,5 +108,51 @@ public class TicTacViewController implements Initializable {
             Button btn = (Button) n;
             btn.setText("");
         }
+    }
+
+    public Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
+        Node result = null;
+        ObservableList<Node> children = gridPane.getChildren();
+
+        for (Node node : children) {
+
+            Integer getR = GridPane.getRowIndex(node);
+            Integer getC = GridPane.getColumnIndex(node);
+
+            if (getR == null) {
+                getR = 0;
+            }
+
+            if (getC == null) {
+                getC = 0;
+            }
+
+            if (getR == row && getC == column) {
+                result = node;
+            }
+        }
+        return result;
+    }
+
+    public void setModel(GameBoard game){
+        this.game = game;
+    }
+
+    public void switchToIntroScreen(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/IntroScreen.fxml"));
+        Parent root = loader.load();
+
+        Node n = (Node) actionEvent.getSource();
+        Stage stage = (Stage) n.getScene().getWindow();
+        stage.close();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.setTitle("Tic Tac Toe");
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public GridPane getGridPane(){
+        return gridPane;
     }
 }
